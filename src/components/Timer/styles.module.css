@@ -1,0 +1,94 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 48px;
+    padding: 40px 20px;
+}
+
+.modes {
+    display: flex;
+    gap: 4px;
+    background-color: var(--surface);
+    padding: 6px;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+}
+
+.modeButton {
+    padding: 8px 24px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    border-radius: 999px;
+    transition: all 0.2s ease;
+}
+
+.modeButton:hover {
+    color: var(--text);
+    background-color: var(--surface-2);
+}
+
+.modeButtonActive {
+    color: var(--background);
+    background-color: var(--primary);
+    box-shadow: none;
+}
+
+.clock {
+    font-size: clamp(5rem, 20vw, 9rem);
+    font-weight: 300;
+    color: var(--text);
+    line-height: 1;
+
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -4px;
+}
+
+.controls {
+    display: flex;
+    gap: 16px;
+}
+
+.button {
+    background-color: var(--primary);
+    color: var(--background);
+    padding: 16px 40px;
+    font-size: 1.1rem;
+    font-weight: 500;
+    border-radius: 999px;
+    transition:
+        transform 0.1s,
+        background-color 0.2s,
+        box-shadow 0.2s;
+}
+
+.button:hover {
+    background-color: var(--primary-hover);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.button:active {
+    transform: scale(0.97);
+}
+
+.buttonSecondary {
+    background-color: transparent;
+    color: var(--text-muted);
+    border: 1px solid var(--border);
+    padding: 16px 40px;
+    font-size: 1.1rem;
+    font-weight: 500;
+    border-radius: 999px;
+    transition: all 0.2s ease;
+}
+
+.buttonSecondary:hover {
+    color: var(--text);
+    background-color: var(--surface);
+}
+
+.buttonSecondary:active {
+    transform: scale(0.97);
+}
