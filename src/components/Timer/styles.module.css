@@ -18,10 +18,11 @@
 
 .modeButton {
     padding: 8px 24px;
+    border-radius: 999px;
+
+    color: var(--text-muted);
     font-size: 0.9rem;
     font-weight: 500;
-    color: var(--text-muted);
-    border-radius: 999px;
     transition: all 0.2s ease;
 }
 
@@ -37,9 +38,9 @@
 }
 
 .clock {
+    color: var(--text);
     font-size: clamp(5rem, 20vw, 9rem);
     font-weight: 300;
-    color: var(--text);
     line-height: 1;
 
     font-variant-numeric: tabular-nums;
@@ -52,12 +53,13 @@
 }
 
 .button {
-    background-color: var(--primary);
-    color: var(--background);
     padding: 16px 40px;
+    background-color: var(--primary);
+    border-radius: 999px;
+
+    color: var(--background);
     font-size: 1.1rem;
     font-weight: 500;
-    border-radius: 999px;
     transition:
         transform 0.1s,
         background-color 0.2s,
@@ -75,12 +77,13 @@
 
 .buttonSecondary {
     background-color: transparent;
-    color: var(--text-muted);
     border: 1px solid var(--border);
+    border-radius: 999px;
     padding: 16px 40px;
+
+    color: var(--text-muted);
     font-size: 1.1rem;
     font-weight: 500;
-    border-radius: 999px;
     transition: all 0.2s ease;
 }
 

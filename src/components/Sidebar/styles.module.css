@@ -1,18 +1,20 @@
 .container {
-    width: 260px;
-    background-color: var(--background);
-    border-right: 1px solid var(--border);
-    padding: 40px 24px;
     display: flex;
     flex-direction: column;
+    width: 260px;
+    padding: 40px 24px;
+
+    background-color: var(--background);
+    border-right: 1px solid var(--border);
 }
 
 .logo {
-    font-size: 1.25rem;
-    font-weight: 600;
     margin-bottom: 48px;
     padding-left: 16px;
+
     color: var(--text);
+    font-size: 1.25rem;
+    font-weight: 600;
     letter-spacing: -0.5px;
 }
 
@@ -24,19 +26,21 @@
 
 .link {
     padding: 12px 16px;
-    border-radius: 8px;
+    border-radius: 999px;
+
+    color: var(--text-muted);
     font-size: 0.95rem;
     font-weight: 500;
-    color: var(--text-muted);
     transition: all 0.2s ease;
 }
 
 .link:hover {
-    background-color: var(--surface);
     color: var(--text);
+    background-color: var(--surface-2);
 }
 
 .active {
-    background-color: var(--primary);
     color: var(--background);
+    background-color: var(--primary);
+    box-shadow: none;
 }
