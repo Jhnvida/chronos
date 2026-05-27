@@ -7,10 +7,12 @@ type HeadingProps = {
 
 function Heading({ title, subtitle }: HeadingProps) {
     return (
-        <div className={styles.container}>
-            <h1 className={styles.title}>{title}</h1>
-            <h2 className={styles.subtitle}>{subtitle}</h2>
-        </div>
+        <>
+            <div className={styles.content}>
+                <h1 className={styles.title}>{title}</h1>
+                <h2 className={styles.subtitle}>{subtitle}</h2>
+            </div>
+        </>
     );
 }
 
