@@ -1,14 +1,17 @@
+import { Content } from "./components/Content";
 import { Heading } from "./components/Heading";
+import { Navbar } from "./components/Navbar";
 import { Timer } from "./components/Timer";
-import styles from "./App.module.css";
 
 function App() {
     return (
         <>
-            <div className={styles.content}>
+            <Navbar />
+
+            <Content>
                 <Heading title="Início" subtitle="Trabalhe com intenção, descanse com propósito." />
                 <Timer />
-            </div>
+            </Content>
         </>
     );
 }
