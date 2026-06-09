@@ -1,0 +1,78 @@
+.section {
+    width: 100%;
+    padding-top: 2rem;
+
+    border-top-width: 1px;
+    border-top-style: solid;
+    border-color: var(--border);
+}
+
+.title {
+    width: 100%;
+    margin-bottom: 1.5rem;
+
+    color: var(--text);
+    font-size: 1.25rem;
+    font-weight: 700;
+    line-height: 1.75rem;
+    text-align: left;
+}
+
+.form {
+    display: flex;
+    gap: 0.5rem;
+
+    width: 100%;
+    margin-bottom: 1.5rem;
+}
+
+.inputGroup {
+    position: relative;
+}
+
+.minutes {
+    position: absolute;
+    top: 50%;
+    right: 0.75rem;
+    transform: translateY(-50%);
+
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    line-height: 1rem;
+}
+
+.input {
+    display: block;
+    flex-grow: 1;
+
+    padding: 1rem;
+
+    border-width: 1px;
+    border-style: solid;
+    border-color: var(--border);
+    border-radius: 0.75rem;
+
+    color: var(--text);
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+
+    background-color: var(--surface);
+}
+
+.smallInput {
+    width: 6rem;
+    padding-right: 2rem;
+    text-align: center;
+}
+
+.button {
+    border-radius: 0.75rem;
+    background-color: var(--primary);
+
+    padding: 0 1.25rem;
+
+    color: var(--background);
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.25rem;
+}
