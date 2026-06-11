@@ -1,34 +1,22 @@
-import { HistoryIcon, HomeIcon, SettingsIcon, TimerIcon } from "lucide-react";
+import { BarChart2, Settings } from "lucide-react";
 import styles from "./styles.module.css";
 
-function Navbar() {
+export function Navbar() {
     return (
-        <>
-            <nav className={styles.navbar}>
-                <div className={styles.title}>
-                    <TimerIcon size={20} />
-                    Chronos
-                </div>
+        <header className={styles.header}>
+            <div className={styles.brand}>
+                <span className={styles.title}>Chronos</span>
+            </div>
 
-                <div className={styles.actions}>
-                    <button className={`${styles.button} ${styles.active}`}>
-                        <HomeIcon size={20} />
-                        <span>Início</span>
-                    </button>
+            <nav className={styles.nav}>
+                <button className={styles.iconButton} aria-label="Estatísticas">
+                    <BarChart2 size={20} />
+                </button>
 
-                    <button className={styles.button}>
-                        <HistoryIcon size={20} />
-                        <span>Histórico</span>
-                    </button>
-
-                    <button className={styles.button}>
-                        <SettingsIcon size={20} />
-                        <span>Configurações</span>
-                    </button>
-                </div>
+                <button className={styles.iconButton} aria-label="Configurações">
+                    <Settings size={20} />
+                </button>
             </nav>
-        </>
+        </header>
     );
 }
-
-export { Navbar };

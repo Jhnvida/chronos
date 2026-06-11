@@ -1,45 +1,84 @@
-import { Trash } from "lucide-react";
+import { Plus, Trash2, CheckCircle2, Circle } from "lucide-react";
 import styles from "./styles.module.css";
 
 export function List() {
     return (
-        <section className={styles.section}>
-            <h2 className={styles.title}>Lista de Tarefas</h2>
+        <section className={styles.container}>
+            <div className={styles.activeBanner}>
+                <div>
+                    <p className={styles.activeLabel}>Foco Atual</p>
+                    <p className={styles.activeText}>Finalizar design do Chronos</p>
+                </div>
+            </div>
 
-            <form className={styles.form}>
-                <input className={styles.input} type="text" placeholder="Qual o próximo foco?" />
+            <div className={styles.listWrapper}>
+                <div className={styles.header}>
+                    <h3 className={styles.title}>Fila de Tarefas</h3>
 
-                <div className={styles.inputGroup}>
-                    <input
-                        className={`${styles.input} ${styles.inputSmall}`}
-                        type="number"
-                        min={1}
-                        max={60}
-                        defaultValue={15}
-                    />
-                    <span className={styles.minutesLabel}>min</span>
+                    <form onSubmit={(e) => e.preventDefault()} className={styles.form}>
+                        <input type="text" placeholder="Qual o próximo foco?" className={styles.input} />
+
+                        <div className={styles.durationInputWrapper}>
+                            <input type="number" defaultValue="25" className={styles.durationInput} min={1} max={60} />
+                            <span className={styles.durationUnit}>m</span>
+                        </div>
+
+                        <button type="button" className={styles.addButton} aria-label="Adicionar">
+                            <Plus size={20} />
+                        </button>
+                    </form>
                 </div>
 
-                <button className={styles.buttonSubmit} type="submit">
-                    Adicionar
-                </button>
-            </form>
-
-            <ul className={styles.list}>
-                <li className={styles.listItem}>
-                    <div className={styles.taskInfo}>
-                        <button className={styles.buttonCheck} type="button" />
-                        <span className={styles.taskTitle}>Tarefa 1</span>
-                    </div>
-
-                    <div className={styles.taskActions}>
-                        <span className={styles.taskDuration}>15 min</span>
-                        <button className={styles.buttonDelete} type="button">
-                            <Trash size={20} color="var(--danger)" />
+                <div className={styles.taskList}>
+                    <div className={`${styles.taskItem} ${styles.taskItemActive}`}>
+                        <button type="button" className={styles.checkButton}>
+                            <Circle size={20} />
                         </button>
+
+                        <span className={styles.taskText}>Finalizar design do Chronos</span>
+
+                        <div className={styles.taskActions}>
+                            <span className={`${styles.taskDuration} ${styles.taskDurationActive}`}>25m</span>
+
+                            <button type="button" className={styles.deleteButton}>
+                                <Trash2 size={16} />
+                            </button>
+                        </div>
                     </div>
-                </li>
-            </ul>
+
+                    <div className={styles.taskItem}>
+                        <button type="button" className={styles.checkButton}>
+                            <Circle size={20} />
+                        </button>
+
+                        <span className={styles.taskText}>Revisar documentação</span>
+
+                        <div className={styles.taskActions}>
+                            <span className={styles.taskDuration}>15m</span>
+
+                            <button type="button" className={styles.deleteButton}>
+                                <Trash2 size={16} />
+                            </button>
+                        </div>
+                    </div>
+
+                    <div className={styles.taskItem}>
+                        <button type="button" className={styles.checkButton}>
+                            <CheckCircle2 size={20} color="var(--primary)" />
+                        </button>
+
+                        <span className={`${styles.taskText} ${styles.taskTextCompleted}`}>Responder emails</span>
+
+                        <div className={styles.taskActions}>
+                            <span className={styles.taskDuration}>10m</span>
+
+                            <button type="button" className={styles.deleteButton}>
+                                <Trash2 size={16} />
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
     );
 }

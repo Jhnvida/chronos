@@ -1,21 +1,17 @@
-import { Content } from "./components/Content";
-import { Heading } from "./components/Heading";
-import { List } from "./components/List";
 import { Navbar } from "./components/Navbar";
+import { Content } from "./components/Content";
 import { Timer } from "./components/Timer";
+import { List } from "./components/List";
 
-function App() {
+export function App() {
     return (
         <>
             <Navbar />
 
             <Content>
-                <Heading title="Início" subtitle="Trabalhe com intenção, descanse com propósito." />
                 <Timer />
                 <List />
             </Content>
         </>
     );
 }
-
-export { App };
