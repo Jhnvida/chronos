@@ -1,7 +1,9 @@
 import { Plus, Trash2, CheckCircle2, Circle } from "lucide-react";
 import styles from "./styles.module.css";
 
-export function List() {
+import type { ListProps } from "../../types/global";
+
+export function List({ tasks }: ListProps) {
     return (
         <section className={styles.container}>
             <div className={styles.activeBanner}>
@@ -30,53 +32,33 @@ export function List() {
                 </div>
 
                 <div className={styles.taskList}>
-                    <div className={`${styles.taskItem} ${styles.taskItemActive}`}>
-                        <button type="button" className={styles.checkButton}>
-                            <Circle size={20} />
-                        </button>
-
-                        <span className={styles.taskText}>Finalizar design do Chronos</span>
-
-                        <div className={styles.taskActions}>
-                            <span className={`${styles.taskDuration} ${styles.taskDurationActive}`}>25m</span>
-
-                            <button type="button" className={styles.deleteButton}>
-                                <Trash2 size={16} />
+                    {tasks.map((task) => (
+                        <div key={task.id} className={`${styles.taskItem} ${task.active ? styles.taskItemActive : ""}`}>
+                            <button type="button" className={styles.checkButton}>
+                                {task.completed ? (
+                                    <CheckCircle2 size={20} color="var(--primary)" />
+                                ) : (
+                                    <Circle size={20} />
+                                )}
                             </button>
+
+                            <span className={`${styles.taskText} ${task.completed ? styles.taskTextCompleted : ""}`}>
+                                {task.title}
+                            </span>
+
+                            <div className={styles.taskActions}>
+                                <span
+                                    className={`${styles.taskDuration} ${task.active ? styles.taskDurationActive : ""}`}
+                                >
+                                    {task.duration}m
+                                </span>
+
+                                <button type="button" className={styles.deleteButton}>
+                                    <Trash2 size={16} />
+                                </button>
+                            </div>
                         </div>
-                    </div>
-
-                    <div className={styles.taskItem}>
-                        <button type="button" className={styles.checkButton}>
-                            <Circle size={20} />
-                        </button>
-
-                        <span className={styles.taskText}>Revisar documentação</span>
-
-                        <div className={styles.taskActions}>
-                            <span className={styles.taskDuration}>15m</span>
-
-                            <button type="button" className={styles.deleteButton}>
-                                <Trash2 size={16} />
-                            </button>
-                        </div>
-                    </div>
-
-                    <div className={styles.taskItem}>
-                        <button type="button" className={styles.checkButton}>
-                            <CheckCircle2 size={20} color="var(--primary)" />
-                        </button>
-
-                        <span className={`${styles.taskText} ${styles.taskTextCompleted}`}>Responder emails</span>
-
-                        <div className={styles.taskActions}>
-                            <span className={styles.taskDuration}>10m</span>
-
-                            <button type="button" className={styles.deleteButton}>
-                                <Trash2 size={16} />
-                            </button>
-                        </div>
-                    </div>
+                    ))}
                 </div>
             </div>
         </section>
