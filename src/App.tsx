@@ -7,12 +7,15 @@ import { useState } from "react";
 import type { Task } from "./types/global";
 
 export function App() {
-    const testTasks: Task[] = [
-        { id: 1, title: "Tarefa 1", duration: 10, active: false, completed: true },
-        { id: 2, title: "Tarefa 2", duration: 15, active: false, completed: true },
-        { id: 3, title: "Tarefa 3", duration: 25, active: true, completed: false },
-    ];
-    const [tasks, setTasks] = useState<Task[]>(testTasks);
+    const [tasks, setTasks] = useState<Task[]>([]);
+
+    const handleAddTask = (task: Task) => {
+        setTasks((prev) => [...prev, task]);
+    };
+
+    const handleRemoveTask = (taskId: number) => {
+        setTasks((prev) => prev.filter((task) => task.id !== taskId));
+    };
 
     return (
         <>
@@ -20,7 +23,7 @@ export function App() {
 
             <Content>
                 <Timer />
-                <List tasks={tasks} />
+                <List tasks={tasks} onTaskAdd={handleAddTask} onTaskRemove={handleRemoveTask} />
             </Content>
         </>
     );
