@@ -4,11 +4,11 @@ import styles from "./styles.module.css";
 import { useState } from "react";
 import type { ListProps } from "../../types/global";
 
-export function List({ tasks, onTaskAdd, onTaskRemove }: ListProps) {
+export function List({ tasks, currentTask, onTaskAdd, onTaskRemove, onTaskComplete }: ListProps) {
     const [title, setTitle] = useState("");
     const [duration, setDuration] = useState(25);
 
-    const handleFormSubmit = (e: React.SubmitEvent) => {
+    function handleFormSubmit(e: React.SubmitEvent) {
         e.preventDefault();
 
         if (!title.trim()) return;
@@ -25,14 +25,14 @@ export function List({ tasks, onTaskAdd, onTaskRemove }: ListProps) {
 
         setTitle("");
         setDuration(25);
-    };
+    }
 
     return (
         <section className={styles.container}>
             <div className={styles.activeBanner}>
                 <div>
                     <p className={styles.activeLabel}>Foco Atual</p>
-                    <p className={styles.activeText}>Finalizar design do Chronos</p>
+                    <p className={styles.activeText}>{currentTask?.title || "Nenhuma tarefa em andamento"}</p>
                 </div>
             </div>
 
@@ -71,7 +71,11 @@ export function List({ tasks, onTaskAdd, onTaskRemove }: ListProps) {
                 <div className={styles.taskList}>
                     {tasks.map((task) => (
                         <div key={task.id} className={`${styles.taskItem} ${task.active ? styles.taskItemActive : ""}`}>
-                            <button type="button" className={styles.checkButton}>
+                            <button
+                                type="button"
+                                className={styles.checkButton}
+                                onClick={() => onTaskComplete(task.id)}
+                            >
                                 {task.completed ? (
                                     <CheckCircle2 size={20} color="var(--primary)" />
                                 ) : (

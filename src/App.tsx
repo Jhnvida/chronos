@@ -9,13 +9,19 @@ import type { Task } from "./types/global";
 export function App() {
     const [tasks, setTasks] = useState<Task[]>([]);
 
-    const handleAddTask = (task: Task) => {
-        setTasks((prev) => [...prev, task]);
-    };
+    const currentTask = tasks.filter((task) => task.completed !== true)[0];
 
-    const handleRemoveTask = (taskId: number) => {
+    function handleAddTask(task: Task) {
+        setTasks((prev) => [...prev, task]);
+    }
+
+    function handleRemoveTask(taskId: number) {
         setTasks((prev) => prev.filter((task) => task.id !== taskId));
-    };
+    }
+
+    function handleCompleteTask(taskId: number) {
+        setTasks((prev) => prev.map((task) => (task.id === taskId ? { ...task, completed: !task.completed } : task)));
+    }
 
     return (
         <>
@@ -23,7 +29,14 @@ export function App() {
 
             <Content>
                 <Timer />
-                <List tasks={tasks} onTaskAdd={handleAddTask} onTaskRemove={handleRemoveTask} />
+
+                <List
+                    tasks={tasks}
+                    currentTask={currentTask}
+                    onTaskAdd={handleAddTask}
+                    onTaskRemove={handleRemoveTask}
+                    onTaskComplete={handleCompleteTask}
+                />
             </Content>
         </>
     );
