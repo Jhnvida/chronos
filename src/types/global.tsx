@@ -8,8 +8,9 @@ export type Task = {
 
 export type ListProps = {
     tasks: Task[];
-    currentTask: Task;
+    currentTask: Task | undefined;
     onTaskAdd: (task: Task) => void;
     onTaskRemove: (taskId: number) => void;
     onTaskComplete: (taskId: number) => void;
+    onTaskActive: (taskId: number) => void;
 };

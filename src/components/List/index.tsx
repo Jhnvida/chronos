@@ -4,7 +4,7 @@ import styles from "./styles.module.css";
 import { useState } from "react";
 import type { ListProps } from "../../types/global";
 
-export function List({ tasks, currentTask, onTaskAdd, onTaskRemove, onTaskComplete }: ListProps) {
+export function List({ tasks, currentTask, onTaskAdd, onTaskRemove, onTaskComplete, onTaskActive }: ListProps) {
     const [title, setTitle] = useState("");
     const [duration, setDuration] = useState(25);
 
@@ -70,7 +70,11 @@ export function List({ tasks, currentTask, onTaskAdd, onTaskRemove, onTaskComple
 
                 <div className={styles.taskList}>
                     {tasks.map((task) => (
-                        <div key={task.id} className={`${styles.taskItem} ${task.active ? styles.taskItemActive : ""}`}>
+                        <div
+                            key={task.id}
+                            className={`${styles.taskItem} ${task.active ? styles.taskItemActive : ""}`}
+                            onClick={() => !task.completed && onTaskActive(task.id)}
+                        >
                             <button
                                 type="button"
                                 className={styles.checkButton}
