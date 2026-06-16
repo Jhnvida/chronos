@@ -8,8 +8,7 @@ import type { Task } from "./types/global";
 
 export function App() {
     const [tasks, setTasks] = useState<Task[]>([]);
-
-    const currentTask = tasks.find((task) => task.active && !task.completed);
+    const currentTask = tasks.find((task) => !task.completed);
 
     function handleAddTask(task: Task) {
         setTasks((prev) => [...prev, task]);
@@ -23,16 +22,12 @@ export function App() {
         setTasks((prev) => prev.map((task) => (task.id === taskId ? { ...task, completed: !task.completed } : task)));
     }
 
-    function handleActivateTask(taskId: number) {
-        setTasks((prev) => prev.map((task) => ({ ...task, active: task.id === taskId })));
-    }
-
     return (
         <>
             <Navbar />
 
             <Content>
-                <Timer />
+                <Timer currentTask={currentTask} onTaskComplete={handleCompleteTask} />
 
                 <List
                     tasks={tasks}
@@ -40,7 +35,6 @@ export function App() {
                     onTaskAdd={handleAddTask}
                     onTaskRemove={handleRemoveTask}
                     onTaskComplete={handleCompleteTask}
-                    onTaskActive={handleActivateTask}
                 />
             </Content>
         </>

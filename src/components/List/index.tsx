@@ -2,9 +2,17 @@ import { Plus, Trash2, CheckCircle2, Circle } from "lucide-react";
 import styles from "./styles.module.css";
 
 import { useState } from "react";
-import type { ListProps } from "../../types/global";
+import type { Task } from "../../types/global";
 
-export function List({ tasks, currentTask, onTaskAdd, onTaskRemove, onTaskComplete, onTaskActive }: ListProps) {
+export type ListProps = {
+    tasks: Task[];
+    currentTask?: Task;
+    onTaskAdd: (task: Task) => void;
+    onTaskRemove: (taskId: number) => void;
+    onTaskComplete: (taskId: number) => void;
+};
+
+export function List({ tasks, currentTask, onTaskAdd, onTaskRemove, onTaskComplete }: ListProps) {
     const [title, setTitle] = useState("");
     const [duration, setDuration] = useState(25);
 
@@ -17,7 +25,6 @@ export function List({ tasks, currentTask, onTaskAdd, onTaskRemove, onTaskComple
             id: Date.now(),
             title: title.trim(),
             duration: duration,
-            active: false,
             completed: false,
         };
 
@@ -32,7 +39,7 @@ export function List({ tasks, currentTask, onTaskAdd, onTaskRemove, onTaskComple
             <div className={styles.activeBanner}>
                 <div>
                     <p className={styles.activeLabel}>Foco Atual</p>
-                    <p className={styles.activeText}>{currentTask?.title || "Nenhuma tarefa em andamento"}</p>
+                    <p className={styles.activeText}>{currentTask?.title ?? "Nenhuma tarefa em andamento"}</p>
                 </div>
             </div>
 
@@ -70,11 +77,7 @@ export function List({ tasks, currentTask, onTaskAdd, onTaskRemove, onTaskComple
 
                 <div className={styles.taskList}>
                     {tasks.map((task) => (
-                        <div
-                            key={task.id}
-                            className={`${styles.taskItem} ${task.active ? styles.taskItemActive : ""}`}
-                            onClick={() => !task.completed && onTaskActive(task.id)}
-                        >
+                        <div key={task.id} className={styles.taskItem}>
                             <button
                                 type="button"
                                 className={styles.checkButton}
@@ -92,11 +95,7 @@ export function List({ tasks, currentTask, onTaskAdd, onTaskRemove, onTaskComple
                             </span>
 
                             <div className={styles.taskActions}>
-                                <span
-                                    className={`${styles.taskDuration} ${task.active ? styles.taskDurationActive : ""}`}
-                                >
-                                    {task.duration} m
-                                </span>
+                                <span className={styles.taskDuration}>{task.duration} m</span>
 
                                 <button
                                     type="button"

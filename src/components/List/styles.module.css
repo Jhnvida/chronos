@@ -194,12 +194,6 @@
     background-color: var(--surface);
 }
 
-.taskItemActive {
-    background-color: var(--surface);
-    border-color: var(--border);
-    box-shadow: var(--shadow-sm);
-}
-
 .checkButton {
     display: flex;
     color: var(--text-muted);
@@ -241,12 +235,6 @@
     background-color: var(--background);
     border: 1px solid var(--border);
     color: var(--text-muted);
-}
-
-.taskDurationActive {
-    background-color: var(--primary);
-    color: var(--primary-text);
-    border-color: var(--primary);
 }
 
 .deleteButton {
