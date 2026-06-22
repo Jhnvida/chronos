@@ -12,20 +12,38 @@ type TimerProps = {
 export function Timer({ currentTask, onTaskComplete }: TimerProps) {
     const [time, setTime] = useState<number>(0);
     const [running, setRunning] = useState<boolean>(false);
+    const [mode, setMode] = useState<"focus" | "pause">("focus");
 
     useEffect(() => {
-        const seconds = (currentTask?.duration ?? 0) * 60;
+        if (running) return;
 
-        setTime(seconds);
-        setRunning(false);
-    }, [currentTask]);
+        if (mode === "focus") {
+            const seconds = (currentTask?.duration ?? 0) * 60;
+            setTime(seconds);
+        }
+    }, [currentTask, mode, running]);
 
     useEffect(() => {
         if (!running) return;
 
         if (time === 0) {
-            setRunning(false);
-            onTaskComplete(currentTask?.id ?? 0);
+            if (mode === "focus") {
+                if (currentTask) {
+                    onTaskComplete(currentTask.id);
+                }
+
+                setMode("pause");
+                setTime(5 * 60);
+            } else {
+                setMode("focus");
+
+                if (currentTask) {
+                    setTime(currentTask.duration * 60);
+                } else {
+                    setTime(0);
+                    setRunning(false);
+                }
+            }
 
             return;
         }
@@ -35,17 +53,33 @@ export function Timer({ currentTask, onTaskComplete }: TimerProps) {
         }, 1000);
 
         return () => clearInterval(interval);
-    }, [running, time]);
+    }, [running, time, mode, currentTask, onTaskComplete]);
 
     function handleRunning() {
+        if (mode === "focus" && !currentTask) return;
         setRunning(!running);
     }
 
     function handleReset() {
-        const seconds = (currentTask?.duration ?? 0) * 60;
-
-        setTime(seconds);
         setRunning(false);
+
+        if (mode === "focus") {
+            const seconds = (currentTask?.duration ?? 0) * 60;
+            setTime(seconds);
+        } else {
+            setTime(5 * 60);
+        }
+    }
+
+    function handleModeChange(mode: "focus" | "pause") {
+        setMode(mode);
+        setRunning(false);
+
+        if (mode === "focus") {
+            setTime((currentTask?.duration ?? 0) * 60);
+        } else {
+            setTime(5 * 60);
+        }
     }
 
     function formatTime(time: number) {
@@ -56,14 +90,22 @@ export function Timer({ currentTask, onTaskComplete }: TimerProps) {
     }
 
     return (
-        <section className={styles.container}>
+        <section className={`${styles.container} ${mode === "pause" ? styles.containerPause : ""}`}>
             <div className={styles.modeSelector}>
-                <button className={`${styles.modeButton} ${styles.modeActive}`} type="button">
+                <button
+                    className={`${styles.modeButton} ${mode === "focus" ? styles.modeActive : ""}`}
+                    type="button"
+                    onClick={() => handleModeChange("focus")}
+                >
                     <Brain size={16} />
                     Foco
                 </button>
 
-                <button className={styles.modeButton} type="button">
+                <button
+                    className={`${styles.modeButton} ${mode === "pause" ? styles.modeActive : ""}`}
+                    type="button"
+                    onClick={() => handleModeChange("pause")}
+                >
                     <Coffee size={16} />
                     Pausa
                 </button>
@@ -71,13 +113,13 @@ export function Timer({ currentTask, onTaskComplete }: TimerProps) {
 
             <div className={styles.timeDisplay}>
                 <span className={styles.time}>{formatTime(time)}</span>
-                <span className={styles.label}>Foco na Tarefa</span>
+                <span className={styles.label}>{mode === "focus" ? "Foco na Tarefa" : "Pausa para Descanso"}</span>
             </div>
 
             <div className={styles.controls}>
                 <button type="button" className={styles.playButton} aria-label="Iniciar" onClick={handleRunning}>
                     {running ? (
-                        <Pause fill="currentColor" size={32} style={{ marginLeft: "4px" }} />
+                        <Pause fill="currentColor" size={32} />
                     ) : (
                         <Play fill="currentColor" size={32} style={{ marginLeft: "4px" }} />
                     )}
